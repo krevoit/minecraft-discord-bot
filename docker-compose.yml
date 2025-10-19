@@ -1,0 +1,18 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile   # or adjust if it's in ./src or another folder
+    container_name: my-bot
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+    volumes:
+      # Mount your local config.js into the container
+      - ./config.js:/usr/src/app/config.js
+      # Optional: mount data files if you want them persistent
+      - ./src/data.json:/usr/src/app/src/data.json
+    # Uncomment if the bot listens on a port (some Discord or Telegram bots don’t)
+    # ports:
+    #   - "3000:3000"
+    command: npm start
